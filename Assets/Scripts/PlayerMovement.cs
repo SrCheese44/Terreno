@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float turnSpeed = .5f;
     public float minSpeed;
     public float maxSpeed;
+
+    public GameObject spawnPoint;
     
     void Start()
     {
@@ -46,7 +48,20 @@ public class PlayerMovement : MonoBehaviour
                 playerSpeed = minSpeed;
             }
         }
+
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Terrain") || collision.gameObject.tag == "Enemy")
+        {
+            transform.position = spawnPoint.transform.position;
+            transform.rotation = spawnPoint.transform.rotation;
+        }
+
+    }
+
 
 
 

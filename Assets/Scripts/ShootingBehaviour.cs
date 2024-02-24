@@ -7,7 +7,7 @@ public class ShootingBehaviour : MonoBehaviour
     [SerializeField]
     GameObject balaPrefab;
 
-    public float bulletSpeed = 100f;
+    public float bulletSpeed = 150f;
     Vector3 Force;
 
     

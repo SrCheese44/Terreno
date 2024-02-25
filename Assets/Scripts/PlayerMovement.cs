@@ -14,21 +14,35 @@ public class PlayerMovement : MonoBehaviour
     public float minSpeed;
     public float maxSpeed;
 
+    private float deathTimer = 0f;
+    public bool deathTimerBegin;
+    [SerializeField]
+    GameObject crosshair;
+
+
     public GameObject spawnPoint;
-    
+
+    public ParticleSystem Explosion;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        deathTimerBegin = false;
     }
 
     void Update()
     {
-        transform.position += transform.forward * playerSpeed * Time.deltaTime;
+        if (!deathTimerBegin)
+        {
+            transform.position += transform.forward * playerSpeed * Time.deltaTime;
 
-        turn.x += Input.GetAxis("Mouse X") * turnSpeed;
-        turn.y += Input.GetAxis("Mouse Y") * turnSpeed;
-        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+            turn.x += Input.GetAxis("Mouse X") * turnSpeed;
+            turn.y += Input.GetAxis("Mouse Y") * turnSpeed;
+            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+        }
+
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -49,19 +63,49 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-    }
+        if (deathTimerBegin)
+        {
+            deathTimer += Time.deltaTime;
+            Debug.Log(deathTimer);
+            if (deathTimer >= 2)
+            {
+                deathTimer = 0;
+                deathTimerBegin = false;
+                RespawnPlayer();
+            }
+        }
 
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Terrain") || collision.gameObject.tag == "Enemy")
         {
-            transform.position = spawnPoint.transform.position;
-            transform.rotation = spawnPoint.transform.rotation;
+            deathTimerBegin = true;
+            rb.isKinematic = true;
+            rb.GetComponent<Renderer>().enabled = false;
+            crosshair.SetActive(false);
+
+            Explosion.Play();
+            Explosion.transform.position = transform.position;
+
+           
         }
+
+
 
     }
 
+    private void RespawnPlayer()
+    {
+        transform.position = spawnPoint.transform.position;
+        transform.rotation = spawnPoint.transform.rotation;
+        gameObject.SetActive(true);
+        rb.isKinematic = false;
+        rb.GetComponent<Renderer>().enabled = true;
+        crosshair.SetActive(true);
+
+    }
 
 
 

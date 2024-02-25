@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform[] patrolPoints;
     public int targetPoint;
     public float speed;
+  
 
     public ParticleSystem Explosion;
     void Start()
@@ -22,6 +23,8 @@ public class EnemyBehaviour : MonoBehaviour
             increaseTargetInt();
         }
         transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
+
+        
         transform.LookAt(waypoint);
     }
 

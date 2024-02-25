@@ -7,7 +7,8 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform[] patrolPoints;
     public int targetPoint;
     public float speed;
-  
+
+    public float rotateSpeed = 5.0f;
 
     public ParticleSystem Explosion;
     void Start()
@@ -24,8 +25,11 @@ public class EnemyBehaviour : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
 
+        Vector3 waypointPosition = (patrolPoints[targetPoint].position - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(waypointPosition);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
         
-        transform.LookAt(waypoint);
+        
     }
 
 

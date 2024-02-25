@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            playerSpeed +=  7 * Time.deltaTime;
+            playerSpeed +=  15 * Time.deltaTime;
 
             if(playerSpeed > maxSpeed) 
             {
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            playerSpeed -= 7 * Time.deltaTime;
+            playerSpeed -= 15 * Time.deltaTime;
 
             if(playerSpeed < minSpeed)
             {
@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = spawnPoint.transform.position;
         transform.rotation = spawnPoint.transform.rotation;
-        gameObject.SetActive(true);
         rb.isKinematic = false;
         rb.GetComponent<Renderer>().enabled = true;
         crosshair.SetActive(true);

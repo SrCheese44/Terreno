@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
     public int targetPoint;
     public float speed;
 
+    public ParticleSystem Explosion;
     void Start()
     {
         targetPoint = 0;   
@@ -43,6 +44,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
 
+            Explosion.Play();
+            Explosion.transform.position = transform.position;  
         }
 
 

@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            playerSpeed +=  5 * Time.deltaTime;
+            playerSpeed +=  7 * Time.deltaTime;
 
             if(playerSpeed > maxSpeed) 
             {
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            playerSpeed -= 5 * Time.deltaTime;
+            playerSpeed -= 7 * Time.deltaTime;
 
             if(playerSpeed < minSpeed)
             {

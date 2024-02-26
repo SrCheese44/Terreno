@@ -10,6 +10,8 @@ public class ShootingBehaviour : MonoBehaviour
     public float bulletSpeed = 150f;
     Vector3 Force;
 
+    [SerializeField]
+    AudioSource bulletSound;
     
     void Start()
     {
@@ -22,6 +24,7 @@ public class ShootingBehaviour : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
+            bulletSound.Play();
             GameObject bala = ObjectPool.GetObject(balaPrefab); //Hacemos que el gameobject sea igual al de la funcion del object pool
 
             Rigidbody rb_bala = bala.GetComponent<Rigidbody>();

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -18,8 +18,13 @@ public class PlayerMovement : MonoBehaviour
     public bool deathTimerBegin;
     [SerializeField]
     GameObject crosshair;
+    [SerializeField]
+    GameObject jetEffect;
 
     public AudioSource music;
+
+    [SerializeField]
+    AudioSource playerBoom;
 
     public GameObject spawnPoint;
 
@@ -86,6 +91,9 @@ public class PlayerMovement : MonoBehaviour
             rb.isKinematic = true;
             rb.GetComponent<Renderer>().enabled = false;
             crosshair.SetActive(false);
+            jetEffect.SetActive(false); 
+            
+            playerBoom.Play();
 
             Explosion.Play();
             Explosion.transform.position = transform.position;
@@ -102,9 +110,12 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = spawnPoint.transform.position;
         transform.rotation = spawnPoint.transform.rotation;
+        SceneManager.LoadScene(0);
+
         rb.isKinematic = false;
         rb.GetComponent<Renderer>().enabled = true;
         crosshair.SetActive(true);
+        jetEffect.SetActive(true);
 
         music.Play();
 

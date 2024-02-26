@@ -8,6 +8,9 @@ public class EnemyBehaviour : MonoBehaviour
     public int targetPoint;
     public float speed;
 
+    [SerializeField]
+    AudioSource enemyBoom;
+
     public float rotateSpeed = 5.0f;
 
     public ParticleSystem Explosion;
@@ -52,6 +55,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             Explosion.Play();
             Explosion.transform.position = transform.position;  
+            enemyBoom.Play();
         }
 
 

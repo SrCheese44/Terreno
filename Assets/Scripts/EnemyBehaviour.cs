@@ -29,7 +29,6 @@ public class EnemyBehaviour : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(waypointPosition);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
         
-        
     }
 
 

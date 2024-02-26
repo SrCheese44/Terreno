@@ -8,6 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
     public int targetPoint;
     public float speed;
 
+    public HealthBehaviour health;
+
     [SerializeField]
     AudioSource enemyBoom;
 
@@ -51,11 +53,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            health.ReceiveHit();
 
-            Explosion.Play();
-            Explosion.transform.position = transform.position;  
-            enemyBoom.Play();
+           
         }
 
 

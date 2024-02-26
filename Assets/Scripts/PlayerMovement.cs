@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject crosshair;
 
+    public AudioSource music;
 
     public GameObject spawnPoint;
 
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
             Explosion.Play();
             Explosion.transform.position = transform.position;
+            music.Stop();
 
            
         }
@@ -103,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
         rb.isKinematic = false;
         rb.GetComponent<Renderer>().enabled = true;
         crosshair.SetActive(true);
+
+        music.Play();
 
     }
 

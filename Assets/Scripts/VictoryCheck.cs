@@ -22,6 +22,7 @@ public class VictoryCheck : MonoBehaviour
             victoryScreen.SetActive(true);
             player.SetActive(false);
             backgroundOst.Stop();
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

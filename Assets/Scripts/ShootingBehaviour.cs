@@ -29,6 +29,7 @@ public class ShootingBehaviour : MonoBehaviour
 
             Rigidbody rb_bala = bala.GetComponent<Rigidbody>();
             bala.transform.position = transform.position; // La bala sale donde el cañon
+            
             rb_bala.velocity = transform.forward * bulletSpeed;
             StartCoroutine(Recicle(balaPrefab, bala, 2.0f)); // Reutilizamos la bala
         }

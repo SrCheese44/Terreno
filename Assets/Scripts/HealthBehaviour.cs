@@ -9,11 +9,15 @@ public class HealthBehaviour : MonoBehaviour
     [SerializeField]
     AudioSource enemyBoom;
 
+    [SerializeField]
+    AudioSource hitMarker;
+
     public ParticleSystem Explosion;
 
     public void ReceiveHit()
     {
         hitsToDie--;
+        hitMarker.Play();
         if (hitsToDie == 0)
         {
             Destroy(gameObject);

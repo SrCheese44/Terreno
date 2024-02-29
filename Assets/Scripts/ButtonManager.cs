@@ -7,9 +7,9 @@ public class ButtonManager : MonoBehaviour
 {
 
 
-    public void RetryGame()
+    public void NextLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     
@@ -21,6 +21,11 @@ public class ButtonManager : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
 

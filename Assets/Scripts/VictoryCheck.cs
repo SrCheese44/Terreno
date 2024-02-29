@@ -8,6 +8,7 @@ public class VictoryCheck : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject player;
     public AudioSource backgroundOst;
+    public AudioSource winSong;
 
     [SerializeField]
     TextMeshProUGUI enemiesLeftLabel;
@@ -22,6 +23,7 @@ public class VictoryCheck : MonoBehaviour
             victoryScreen.SetActive(true);
             player.SetActive(false);
             backgroundOst.Stop();
+            winSong.Play();
             Cursor.lockState = CursorLockMode.None;
         }
     }

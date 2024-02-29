@@ -23,17 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        Transform waypoint = patrolPoints[targetPoint];
-        if (transform.position == patrolPoints[targetPoint].position)
-        {
-            increaseTargetInt();
-        }
-        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
 
-        Vector3 waypointPosition = (patrolPoints[targetPoint].position - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(waypointPosition);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-        
+        WaypointManeuver();
+
+       
     }
 
 
@@ -61,6 +54,23 @@ public class EnemyBehaviour : MonoBehaviour
 
 
     }
+
+
+
+    private void WaypointManeuver()
+    {
+        Transform waypoint = patrolPoints[targetPoint];
+        if (transform.position == patrolPoints[targetPoint].position)
+        {
+            increaseTargetInt();
+        }
+        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
+
+        Vector3 waypointPosition = (patrolPoints[targetPoint].position - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(waypointPosition);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    }
+
 
 
 }

@@ -22,6 +22,19 @@ public class ShootingBehaviour : MonoBehaviour
    
     void Update()
     {
+        FireFunction();
+    }
+
+    IEnumerator Recicle(GameObject prefab, GameObject copiaPrefab, float time) 
+    {
+        yield return new WaitForSeconds(time);
+        ObjectPool.RecicleObject(prefab, copiaPrefab);
+    }
+
+
+
+    private void FireFunction()
+    {
         if (Input.GetButtonUp("Fire1"))
         {
             bulletSound.Play();
@@ -29,15 +42,9 @@ public class ShootingBehaviour : MonoBehaviour
 
             Rigidbody rb_bala = bala.GetComponent<Rigidbody>();
             bala.transform.position = transform.position; // La bala sale donde el cañon
-            
+
             rb_bala.velocity = transform.forward * bulletSpeed;
             StartCoroutine(Recicle(balaPrefab, bala, 2.0f)); // Reutilizamos la bala
         }
-    }
-
-    IEnumerator Recicle(GameObject prefab, GameObject copiaPrefab, float time) 
-    {
-        yield return new WaitForSeconds(time);
-        ObjectPool.RecicleObject(prefab, copiaPrefab);
     }
 }

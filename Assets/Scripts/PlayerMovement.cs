@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource music;
 
+    public GameObject deathScreen;
+
+    [SerializeField]
+    AudioSource defeatMusic;
+
     [SerializeField]
     AudioSource playerBoom;
 
@@ -40,34 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!deathTimerBegin)
-        {
-            transform.position += transform.forward * playerSpeed * Time.deltaTime;
 
-            turn.x += Input.GetAxis("Mouse X") * turnSpeed;
-            turn.y += Input.GetAxis("Mouse Y") * turnSpeed;
-            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-        }
+        MouseMovement();   
 
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            playerSpeed +=  15 * Time.deltaTime;
-
-            if(playerSpeed > maxSpeed) 
-            {
-                playerSpeed = maxSpeed;
-            }
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            playerSpeed -= 15 * Time.deltaTime;
-
-            if(playerSpeed < minSpeed)
-            {
-                playerSpeed = minSpeed;
-            }
-        }
+        AccelerateAndBreak();
+       
 
         if (deathTimerBegin)
         {
@@ -98,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             Explosion.Play();
             Explosion.transform.position = transform.position;
             music.Stop();
+            
 
            
         }
@@ -108,19 +91,55 @@ public class PlayerMovement : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        transform.position = spawnPoint.transform.position;
-        transform.rotation = spawnPoint.transform.rotation;
-        SceneManager.LoadScene(0);
+        
+        deathScreen.SetActive(true);
+        defeatMusic.Play();
 
-        rb.isKinematic = false;
-        rb.GetComponent<Renderer>().enabled = true;
+        Destroy(gameObject);
         crosshair.SetActive(true);
         jetEffect.SetActive(true);
 
-        music.Play();
+        Cursor.lockState = CursorLockMode.None;
+
 
     }
 
 
+
+    private void MouseMovement()
+    {
+        if (!deathTimerBegin)
+        {
+            transform.position += transform.forward * playerSpeed * Time.deltaTime;
+
+            turn.x += Input.GetAxis("Mouse X") * turnSpeed;
+            turn.y += Input.GetAxis("Mouse Y") * turnSpeed;
+            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+        }
+    }
+
+
+
+    private void AccelerateAndBreak()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            playerSpeed += 15 * Time.deltaTime;
+
+            if (playerSpeed > maxSpeed)
+            {
+                playerSpeed = maxSpeed;
+            }
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            playerSpeed -= 15 * Time.deltaTime;
+
+            if (playerSpeed < minSpeed)
+            {
+                playerSpeed = minSpeed;
+            }
+        }
+    }
 
 }

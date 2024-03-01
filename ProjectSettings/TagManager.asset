@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Bound
   - Warning
+  - Speed
   layers:
   - Default
   - TransparentFX

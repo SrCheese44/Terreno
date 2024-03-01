@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     public float playerSpeed;
+    public float afterBoostSpeed;
+    public float boostPW;
     public Vector2 turn;
     public float turnSpeed = .5f;
     public float minSpeed;
@@ -38,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject warningCanvas;
     private float warningTimer = 0.0f;
     private bool warningFlag = false;
+
+  
 
 
     void Start()
@@ -76,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
                 warningCanvas.SetActive(false);
             }
         }
+
+
+        
         
 
     }
@@ -109,6 +116,19 @@ public class PlayerMovement : MonoBehaviour
             
             warningCanvas.SetActive(true);
         }
+
+        if (other.gameObject.CompareTag("Speed"))
+        {
+            StartCoroutine(NewSpeed(3.0f));
+            playerSpeed = maxSpeed + boostPW;
+        }
+    }
+
+    IEnumerator NewSpeed( float time)
+    {
+        yield return new WaitForSeconds(time);
+        playerSpeed = afterBoostSpeed;
+
     }
 
   
@@ -149,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
+            afterBoostSpeed = playerSpeed;
             playerSpeed += 15 * Time.deltaTime;
 
             if (playerSpeed > maxSpeed)
@@ -158,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            afterBoostSpeed = playerSpeed;
             playerSpeed -= 15 * Time.deltaTime;
 
             if (playerSpeed < minSpeed)

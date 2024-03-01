@@ -35,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
 
     public ParticleSystem Explosion;
 
+    public GameObject warningCanvas;
+    private float warningTimer = 0.0f;
+    private bool warningFlag = false;
+
 
     void Start()
     {
@@ -54,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         if (deathTimerBegin)
         {
             deathTimer += Time.deltaTime;
-            Debug.Log(deathTimer);
+            
             if (deathTimer >= 2)
             {
                 deathTimer = 0;
@@ -63,24 +67,25 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if(warningFlag)
+        {
+            warningTimer += Time.deltaTime;
+
+            if (warningTimer >= 2)
+            {
+                warningCanvas.SetActive(false);
+            }
+        }
+        
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Terrain") || collision.gameObject.tag == "Enemy")
         {
-            deathTimerBegin = true;
-            rb.isKinematic = true;
-            rb.GetComponent<Renderer>().enabled = false;
-            crosshair.SetActive(false);
-            jetEffect.SetActive(false); 
             
-            playerBoom.Play();
-
-            Explosion.Play();
-            Explosion.transform.position = transform.position;
-            music.Stop();
-            
+            PlayerDeath();
 
            
         }
@@ -88,6 +93,26 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bound"))
+        {
+            PlayerDeath();
+        }
+
+        if (other.gameObject.CompareTag("Warning"))
+        {
+            
+            warningFlag = true;
+            
+            warningCanvas.SetActive(true);
+        }
+    }
+
+  
+
 
     private void RespawnPlayer()
     {
@@ -140,6 +165,24 @@ public class PlayerMovement : MonoBehaviour
                 playerSpeed = minSpeed;
             }
         }
+    }
+
+
+
+
+    private void PlayerDeath()
+    {
+        deathTimerBegin = true;
+        rb.isKinematic = true;
+        rb.GetComponent<Renderer>().enabled = false;
+        crosshair.SetActive(false);
+        jetEffect.SetActive(false);
+
+        playerBoom.Play();
+
+        Explosion.Play();
+        Explosion.transform.position = transform.position;
+        music.Stop();
     }
 
 }

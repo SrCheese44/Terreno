@@ -6,8 +6,11 @@ public class ShootingBehaviour : MonoBehaviour
 {
     [SerializeField]
     GameObject balaPrefab;
+   
 
     public float bulletSpeed = 150f;
+
+    
     
 
     [SerializeField]
@@ -46,5 +49,7 @@ public class ShootingBehaviour : MonoBehaviour
             rb_bala.velocity = transform.forward * bulletSpeed;
             StartCoroutine(Recicle(balaPrefab, bala, 2.0f)); // Reutilizamos la bala
         }
+
+       
     }
 }

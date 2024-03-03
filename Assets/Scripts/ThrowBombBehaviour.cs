@@ -9,6 +9,9 @@ public class ThrowBombBehaviour : MonoBehaviour
 
     public float m_bombTimer = 4f;
     public bool canShoot = true;
+    [SerializeField] public AudioSource bombSound;
+    [SerializeField] public AudioSource bombFalling;
+    [SerializeField] public ParticleSystem bombParticles;
 
     private void Start()
     {
@@ -20,6 +23,8 @@ public class ThrowBombBehaviour : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire2") && canShoot)
         {
+            bombFalling.Play(); 
+
             canShoot = false;
 
             GameObject bomb = ObjectPool.GetObject(bombPrefab);
@@ -38,6 +43,10 @@ public class ThrowBombBehaviour : MonoBehaviour
     IEnumerator Recicle(GameObject prefab, GameObject copiaPrefab, float time)
     {
         yield return new WaitForSeconds(time);
+        bombSound.Play();
+        bombFalling.Stop();
+        bombParticles.transform.position = copiaPrefab.transform.position;
+        bombParticles.Play();
         ObjectPool.RecicleObject(prefab, copiaPrefab);
     }
 

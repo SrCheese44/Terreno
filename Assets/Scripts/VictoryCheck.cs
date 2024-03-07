@@ -12,11 +12,12 @@ public class VictoryCheck : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI enemiesLeftLabel;
-
+    
    
     void Update()
     {
         enemiesLeftLabel.text = transform.childCount.ToString("00") + " left";
+     
 
         if (transform.childCount == 0 && victoryScreen.activeSelf == false)
         {

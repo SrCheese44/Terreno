@@ -26,10 +26,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         WaypointManeuver();
 
-       
     }
-
-
 
     void increaseTargetInt()
     {
@@ -47,14 +44,10 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             health.ReceiveHit();
-
-           
+ 
         }
 
-
-
     }
-
 
 
     private void WaypointManeuver()

@@ -25,6 +25,8 @@ public class ShootingBehaviour : MonoBehaviour
 
     [SerializeField]
     AudioSource bulletSound;
+    [SerializeField]
+    AudioSource reloadSound;
     
     void Start()
     {
@@ -93,7 +95,7 @@ public class ShootingBehaviour : MonoBehaviour
          if (bullets == 0)
          {
             reloadTime -= Time.deltaTime;
-
+            reloadSound.Play();
             if (reloadTime < 0)
             {
                 bullets = 15;
@@ -107,7 +109,7 @@ public class ShootingBehaviour : MonoBehaviour
             bullets = 0;
 
             reloadTime = manualReloadTime;
-
+            reloadSound.Play();
             if(manualReloadTime < 0)
             {
                 bullets = 15;
